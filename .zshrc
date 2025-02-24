@@ -2,7 +2,7 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH="/Users/malteeiting/.oh-my-zsh"
+export ZSH="$HOME/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -112,9 +112,11 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 # Setup nvm
-export NVM_DIR="$HOME/.nvm"
-  [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && . "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
-  [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && . "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
+if [[ $(uname) == "Darwin" ]]; then
+    export NVM_DIR="$HOME/.nvm"
+      [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && . "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
+      [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && . "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
+fi
 
 # Set default node path
 export NODE_PATH=`which node`
@@ -126,25 +128,26 @@ export PRETTIERD_DEFAULT_CONFIG="$HOME/.config/nvim/utils/linter-config/.prettie
 export GOPATH="$HOME/go"
 export GOBIN="$GOPATH/bin"
 
-# Add cargo, mysql-client and go to PATH
+# Add cargo and go to PATH
 export PATH="$HOME/.cargo/bin:$PATH"
-export PATH="/opt/homebrew/opt/mysql-client/bin:$PATH"
 export PATH="$HOME/go/bin:$PATH"
 
 # Add composer
 export PATH="$HOME/.composer/vendor/bin:$PATH"
 
 # Golang path
-export LIBRARY_PATH="/opt/homebrew/lib:$LIBRARY_PATH"
-export LIBRARY_PATH="/opt/homebrew/opt/openssl/lib:$LIBRARY_PATH"
-export CPATH="/opt/homebrew/include:$CPATH"
-export PROTOC="/opt/homebrew/bin/protoc"
+if [[ $(uname) == "Darwin" ]]; then
+    export LIBRARY_PATH="/opt/homebrew/lib:$LIBRARY_PATH"
+    export LIBRARY_PATH="/opt/homebrew/opt/openssl/lib:$LIBRARY_PATH"
+    export CPATH="/opt/homebrew/include:$CPATH"
+    export PROTOC="/opt/homebrew/bin/protoc"
+fi
 
 # GPG
 export GPG_TTY=$(tty)
 
 # bun completions
-[ -s "/Users/malteeiting/.bun/_bun" ] && source "/Users/malteeiting/.bun/_bun"
+[ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
 
 # Macro for dotfiles
 alias dotfiles="/usr/bin/git --git-dir=$HOME/.dotfiles --work-tree=$HOME" 
